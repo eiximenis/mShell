@@ -1,0 +1,9 @@
+{
+  "innershells": 
+  [
+    {
+      "path": "D:\\personal\\projects\\mShell\\src\\plugins\\MShell.Plugins.Kubernetes\\bin\\Debug\\netstandard2.0"
+    }
+  ]
+
+}
