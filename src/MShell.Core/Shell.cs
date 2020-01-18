@@ -8,13 +8,15 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MShell.Core
 {
-    public class Shell 
+    public class Shell
     {
         private readonly MainConfiguration _cfg;
         private readonly Dictionary<string, IInnerShell> _innerShells;
+        private readonly ShellContext _context;
 
         private IInnerShell _current;
 
@@ -30,6 +32,7 @@ namespace MShell.Core
         {
             _cfg = config;
             _innerShells = new Dictionary<string, IInnerShell>();
+            _context = new ShellContext(config.StartupPath);
             _current = null;
         }
 
@@ -43,23 +46,20 @@ namespace MShell.Core
             do
             {
                 var cmd = processor.Read(Prompt);
-                if (cmd != null)
+                if (cmd.IsInnerShell)
                 {
-                    if (cmd.IsInnerShell)
-                    {
-                        RunInnerShellCommand(cmd);
-                    }
-                    else
-                    {
-                        handler.Run(cmd);
-                    }
+                    RunInnerShellCommand(cmd);
+                }
+                else
+                {
+                    handler.Run(cmd, _context);
                 }
             } while (!exit);
         }
 
         private void RunInnerShellCommand(ShellCommand cmd)
         {
-            var shell = GetInnerShell(cmd.ProcessedValue);
+            var shell = GetInnerShell(cmd.CommandName);
             if (shell != null)
             {
                 shell.Enter();
@@ -101,5 +101,6 @@ namespace MShell.Core
         {
             return _innerShells.TryGetValue(entryCommand, out var innerShell) ? innerShell : null;
         }
+
     }
 }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MShell.Core.Shared\MShell.Core.Shared.csproj" />
+    <ProjectReference Include="..\MShell.Plugins.Core\MShell.Plugins.Core.csproj" />
   </ItemGroup>
 
 </Project>

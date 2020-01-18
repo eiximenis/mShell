@@ -2,7 +2,7 @@
   "profiles": {
     "MShell": {
       "commandName": "Project",
-      "commandLineArgs": "--plugins-path D:\\personal\\projects\\mShell\\src\\plugins\\MShell.Plugins.Kubernetes\\bin\\Debug\\netstandard2.0"
+      "commandLineArgs": "--plugins-path D:\\personal\\projects\\mShell\\src\\plugins\\MShell.Plugins.Kubernetes\\bin\\Debug\\netstandard2.0;D:\\personal\\projects\\mShell\\src\\MShell.Plugins.Processes\\bin\\Debug\\netstandard2.0"
     }
   }
 }

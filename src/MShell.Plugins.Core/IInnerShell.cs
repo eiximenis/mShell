@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MShell.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,5 +10,9 @@ namespace MShell.Plugins.Core
         string Prompt { get; }
 
         void Enter();
+
+        void Process(ShellCommand command);
+
+        IVirtualFileTree VirtualFilesTree { get; }
     }
 }
