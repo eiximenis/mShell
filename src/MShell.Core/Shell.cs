@@ -94,7 +94,12 @@ namespace MShell.Core
                 Console.Error.WriteLine("Error: InnerShell do not have attribute");
                 return;
             }
-            _innerShells.Add(attr.EntryCommand, Activator.CreateInstance(pluginType) as IInnerShell);
+            var ishell = Activator.CreateInstance(pluginType) as IInnerShell;
+            _innerShells.Add(attr.EntryCommand, ishell);
+            if (ishell.VirtualFilesTree != null)
+            {
+                _context.FileProcessor.MountVirtualFileProcessor(ishell.VirtualFilesTree);
+            }
         }
 
         private IInnerShell GetInnerShell(string entryCommand)

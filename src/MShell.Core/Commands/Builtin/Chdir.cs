@@ -1,13 +1,21 @@
-﻿using System;
+﻿using CommandLine;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MShell.Core.Commands.Builtin
 {
-    public class Chdir : IBuiltinCommand
+    public class ChdirOptions
     {
-        public void Run(ShellCommand command, ShellContext context)
+        [Value(0, MetaName = "Path to navigate", HelpText = "Path to navigate")]
+        public string PathToChange { get; set; }
+    }
+
+    public class Chdir : BuiltinCommand<ChdirOptions>
+    {
+        protected override void Run(ShellCommand command, ShellContext context, ChdirOptions options)
         {
+            
         }
     }
 }

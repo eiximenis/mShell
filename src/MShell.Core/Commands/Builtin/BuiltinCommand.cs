@@ -23,6 +23,6 @@ namespace MShell.Core.Commands.Builtin
 
         protected abstract void Run(ShellCommand command, ShellContext context, TOptions options);
 
-        protected abstract void Error (ShellCommand command, IEnumerable<Error> errors);
+        protected virtual void Error(ShellCommand command, IEnumerable<Error> errors) { }
     }
 }

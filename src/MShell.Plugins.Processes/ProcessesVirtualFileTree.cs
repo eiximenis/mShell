@@ -1,6 +1,8 @@
-﻿using MShell.Plugins.Core;
+﻿using MShell.Core.Files;
+using MShell.Plugins.Core;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace MShell.Plugins.Processes
 {
@@ -8,13 +10,10 @@ namespace MShell.Plugins.Processes
     {
         public string MountPath => "proc";
 
-        public IEnumerable<string> GetEntries()
+        public IEnumerable<string> GetEntries(in ShellPath path)
         {
-            var procs = Process.GetProcesses();
-            foreach (var proc in procs)
-            {
-                yield return proc.ProcessName;
-            }
+            return Process.GetProcesses()
+                .Select(p => p.ProcessName);
         }
     }
 }

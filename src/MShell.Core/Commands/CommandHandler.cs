@@ -15,6 +15,7 @@ namespace MShell.Core.Commands
             _builtinCommands = new Dictionary<string, IBuiltinCommand>();
             _builtinCommands.Add("ls", new Ls());
             _builtinCommands.Add("cd", new Ls());
+            _builtinCommands.Add("jobs", new Jobs());
         }
 
 
@@ -33,16 +34,21 @@ namespace MShell.Core.Commands
 
         private void RunExternalCommand(ShellCommand command, ShellContext context)
         {
-            var p = new Process();
-            p.StartInfo = new ProcessStartInfo()
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo()
             {
                 FileName = command.CommandName,
                 Arguments = command.ArgumentsAsString
             };
-            p.Start();
-            if (!command.IsJob)
+            
+            if (command.IsJob)
             {
-                p.WaitForExit();
+                context.AddJob(new ShellJob(process));
+            }
+            else
+            {
+                process.Start();
+                process.WaitForExit();
             }
         }
 
